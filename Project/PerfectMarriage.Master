@@ -1,0 +1,336 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="PerfectMarriage.master.cs" Inherits="PerfetMarriage_01March2018_.PerfectMarriage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="dist/css/bootstrap.css" rel="stylesheet" />
+    <script src="dist/js/jquery-slim.min.js"></script>
+    <script src="dist/js/bootstrap.js"></script>
+    <script src="dist/js/popper.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script type="text/javascript" src="dist/js/main.js"></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server" data-ng-app="myApp" data-ng-controller="myCntrl">
+        <!-- Nav Start -->
+        <nav class="navbar navbar-expand-md bg-danger navbar-dark text-center">
+            <!-- Brand -->
+            <a class="navbar-brand logo-img" href="Home">
+                <img src="img/Logo.png" class="img img-fluid" alt="Alternate Text" />
+            </a>
+
+            <!-- Toggler/collapsibe Button -->
+            <div class="navbar-toggler p-0 mr-s-n20-m-n60">
+                <a class="nav-link" href="#" onclick="return false;">
+                    <div class="profile-picture-container-mobile text-center">
+                        <img runat="server" id="profileImage1" src="img/test.jpg" class="" alt="Alternate Text" onclick="profileDPDMenu()" style="max-width: 48px; border-radius: 10%;" />
+                    </div>
+                    <div id="profileDropDown" class="dropdown-content text-left">
+                        <a href="MyProfile"><span class="fa fa-user"></span>&nbsp; Profile</a>
+                        <asp:LinkButton runat="server" ID="btnLogout1" OnClick="btnLogout1_Click"><span class="fa fa-sign-out"></span>&nbsp; Logout</asp:LinkButton>
+                    </div>
+                </a>
+            </div>
+            <div class="navbar-toggler p-0" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <div class="mr-0 d-inline-block">
+                    <i class="fa fa-bars" style="font-size: 48px;"></i>
+                </div>
+            </div>
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse w-100 display-5 text-light" id="collapsibleNavbar">
+                <div class="ml-xl-20 ml-lg-10 p-1">
+                    <ul class="navbar-nav UnderLine-DropDown">
+                        <li class="nav-item">
+                            <a class="nav-link" href="Home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Inbox">Inbox</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="ml-lg-10 ml-md-5 UnderLine-DropDown d-inline mt-2">
+                    <ul class="navbar-nav mt-1">
+                        <li class="nav-item">
+                            <asp:Button runat="server" UseSubmitBehavior="false" ID="btnUpgrade" Text="Upgrade" OnClick="btnUpgrade_Click" CssClass="btn btn-outline-light" />
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link border-right-2-ccc no-border-at-mobile" href="PaymentPlan">Help</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="return false;">
+                                <div class="profile-picture-container text-center">
+                                    <img runat="server" id="profileImage2" src="img/test.jpg" class="mt-n8 d-lg-inline d-md-inline d-sm-none" alt="Alternate Text" onclick="profileDPDMenu2()" style="max-width: 48px; width: 100%; border-radius: 10%;" />
+                                </div>
+                                <div id="profileDropDown2" class="dropdown-content text-left">
+                                    <a href="MyProfile"><span class="fa fa-user"></span>&nbsp; My Profile</a>
+                                    <asp:LinkButton runat="server" OnClick="Unnamed_Click"><span class="fa fa-sign-out"></span>&nbsp; Logout</asp:LinkButton>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Nav End -->
+        <div class="container-fluid m-lg-auto mt-lg-3 m-md-auto mt-3">
+            <!-- Ad Section Start -->
+            <div class="row mt-2">
+                <div class="col-12">
+                    <img src="img/ad.jpg" class="img-fluid w-100" alt="Alternate Text" />
+                </div>
+            </div>
+            <!-- Ad Section End -->
+            <div class="row mt-2">
+                <asp:ContentPlaceHolder ID="Body" runat="server">
+                </asp:ContentPlaceHolder>
+                <!-- Chat Side Start -->
+                <div class="col-xl-3">
+                    <div class="my-Box p-1" id="chatSide">
+                        <div class="text-right p-2" id="chatClose">
+                            <span class="fa fa-times-rectangle" onclick="closeChat()"></span>
+                            <hr />
+                        </div>
+                        <%--<asp:ListView ID="lvChat" runat="server" AutoPostBack="true" DataKeyNames="id">
+                                    <LayoutTemplate>
+                                        <div runat="server" id="tblProducts">
+                                            <span runat="server" id="groupPlaceholder" style="border: 1px solid #ccc;"></span>
+
+                                        </div>
+                                    </LayoutTemplate>
+                                    <GroupTemplate>
+                                        <div runat="server" id="productRow">
+                                            <span runat="server" id="itemPlaceHolder"></span>
+                                        </div>
+                                    </GroupTemplate>
+                                    <ItemTemplate>--%>
+                        <!--  Single User Start -->
+                        <div class="SetToUser" data-ng-repeat="Users in UsersList">
+                            <div class="row " onclick="openChatBox()" style="cursor: pointer !important;">
+                                <div class="col-12">
+                                    <asp:Label ID="lblUId" Style="display: none;" runat="server" data-ng-bind="Users.UserID" class="UserId" />
+                                    <img data-ng-src="{{Users.ImagePath}}" class="img-fluid img-thumbnail d-inline w-25 m-0" alt="Alternate Text" style="width: 80px !important; height: 80px!important;" />
+                                    <div class="d-inline">
+                                        <p data-ng-bind="Users.UserName" class="d-inline m-xl-2 GetName"></p>
+
+                                    </div>
+
+                                    <asp:Panel runat="server" ID="userOnline" data-ng-switch on="Users.UserStatus" CssClass="d-inline float-right mt-lg-4 mt-md-3 mt-sm-4">
+                                        <%--<span class="fa fa-circle text-success"></span>--%>
+                                        <%--{{ Users.UserStatus === "0" ? "<span class='fa fa-circle text-ccc'></span>":"<span class='fa fa-circle text-success'></span>"}}--%>
+
+                                        <span data-ng-switch-when="0" class='fa fa-circle text-ccc'></span>
+                                        <span data-ng-switch-when="1" class='fa fa-circle text-success'></span>
+                                    </asp:Panel>
+
+
+                                    <%--<asp:Panel runat="server" ID="Panel1" CssClass="d-inline float-right mt-lg-4 mt-md-3 mt-sm-4" Visible='<%# Eval("UerStatus").ToString() == "false" %>'>
+                                            <span class="fa fa-circle text-ccc"></span>
+                                        </asp:Panel>--%>
+                                </div>
+                            </div>
+                        </div>
+                        <%--   </ItemTemplate>
+                                </asp:ListView>--%>
+
+                        <!-- Single User End -->
+
+                        <div id="chatSearchBar" class="">
+                            <div class="row">
+                                <div class="col-12">
+                                    <%--<asp:TextBox runat="server" ID="txtSearchChat" placeholder="Search"></asp:TextBox>
+                                    <div id="chatOptionButton">
+                                        <span class="fa fa-gear fa-lg"></span>
+                                    </div>--%>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="chatSearchOptionDropDown">
+                        </div>
+                    </div>
+                </div>
+                <div class="card" id="chatOpenButton" onclick="openChat()">
+                    <div class="card-header">
+                        <p class="text-left d-inline">Open Chat</p>
+                    </div>
+                </div>
+                <!--Chat Conversation Box data-ng-app="myApp" data-ng-controller="myCntrl" -->
+                <div id="chat-box">
+                    <div>
+                        <header class="bg-danger p-2" id="chat-header" onclick="minimizeChatBox()">
+                            <a href="Profile">
+                                <p class="text-left d-inline SetName">User Name</p>
+                            </a>
+                            <p class="d-inline float-right position-relative">
+                                <span class="fa fa-times" onclick="closeChatBox()" style="cursor: pointer !important;"></span>
+                            </p>
+                        </header>
+                        <div class="chat-box-body" id="chat-body">
+                            <div class="container">
+                                <%--single message(Send By Me)--%>
+                                <div data-ng-repeat="messages in MessageList" class="container border bg-ccc rounded m-1">
+                                    <img data-ng-src="{{messages.ImagePath}}" class="chat-box-img float-left" alt="Alternate Text" />
+                                    <p data-ng-bind="messages.strMessage"></p>
+                                    <span class="chat-box-time" data-ng-bind="messages.dteDataEntryDate"></span>
+                                    <span class="chat-box-time" data-ng-bind="messages.msgStatus"></span>
+                                </div>
+                                <%--single message --%>
+                            </div>
+                        </div>
+                    </div>
+
+                    <footer id="chat-footer">
+                        <div class="input-group">
+                            <%--<asp:TextBox runat="server" ID="txtSendMessage" CssClass="d-inline form-control" data-ng-model="txtSendMessage"></asp:TextBox>--%>
+                            <input type="text" id="txtMessage" class="d-inline form-control" data-ng-model="txtMessage" />
+                            <input type="button" id="btnSubmit" value="Send" data-ng-click="Save()" class="btn-primary d-inline form-control" />
+                            <%--<asp:Button Text="Send" runat="server" CssClass="btn-primary d-inline form-control" />--%>
+                        </div>
+                    </footer>
+                </div>
+                <!-- Chat Side End -->
+            </div>
+        </div>
+        <!-- Footer Start-->
+        <footer id="myFooter">
+            <div class="container-fluid bg-danger">
+                <div class="container text-center p-2">
+                    <img src="img/Logo.png" class="img-fluid w-25" alt="Alternate Text" />
+                    <h5>Copy Right &copy; 2018- All Rights Reserved</h5>
+                    <div class="d-inline p-2">
+                        <a href="#">
+                            <span class="fa fa-facebook fa-2x facebookIcon"></span>
+                        </a>
+                        <a href="#">
+                            <span class="fa fa-twitter fa-2x twitterIcon"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Footer End-->
+
+        <!-- Msg Get Send Ajax Start-->
+
+        <script type="text/javascript">
+            var Uid;
+            //$(document).ready(function () {
+            //    $(".SetToUser").click(function () {
+            //        alert('User id get');
+            //        Uid = $(this).find(".UserId").html();
+            //        var UName = $(this).find(".GetName").html();
+            //        $(".SetName").html(UName);
+            //    });
+            //});
+            $(document).on("click", ".SetToUser", function () {
+                Uid = $(this).find(".UserId").html();
+                var UName = $(this).find(".GetName").html();
+                $(".SetName").html(UName);
+            });
+
+            var app = angular.module('myApp', [])
+            app.controller('myCntrl', function ($scope, $http, $window) {
+                $scope.Save = function () {
+                    var post = $http({
+                        method: "POST",
+                        url: "WebServiceChat.asmx/Save",
+                        dataType: "json",
+                        data: { ToUserId: Uid, message: $scope.txtMessage },
+                        headers: { 'Content-Type': 'application/json; charset=utf-8' },
+                    });
+
+                    post.success(function (data, status) {
+                        $window.alert("Saved Successfully..");
+                        $scope.GetMessages();
+                    });
+
+                    post.error(function (data, status) {
+                        $window.alert("You Are Not Allowed To Chat");
+                    });
+
+                }
+
+                $scope.GetMessages = function () {
+                    //alert(Uid);
+                    var post = $http({
+                        method: "POST",
+                        url: "WebServiceChat.asmx/GetMessages",
+                        dataType: "json",
+                        data: { TouserId: Uid },
+                        headers: { "Content-Type": "application/json" }
+                    });
+
+                    post.success(function (data, status) {
+                        // $window.alert(data.d);
+                        $scope.MessageList = data.d;
+
+                    });
+
+                    post.error(function (data, status) {
+                        // $window.alert(data.Message);
+                    });
+                }
+                $scope.GetUsers = function () {
+                    var post = $http({
+                        method: "POST",
+                        url: "WebServiceChat.asmx/GetUsers",
+                        dataType: "json",
+                        data: {},
+                        headers: { "Content-Type": "application/json" }
+                    });
+                    post.success(function (data, status) {
+                        $scope.UsersList = data.d;
+
+                    });
+                    post.error(function () {
+                        $window.alert(data.Message);
+                    });
+                }
+                $scope.GetNewMsgs = function () {
+                    var post = $http({
+                        method: "POST",
+                        url: "WebServiceChat.asmx/GetNewMessages",
+                        dataType: "json",
+                        data: {},
+                        headers: { "Content-Type": "application/json" }
+                    });
+
+                    post.success(function (data, status) {
+                        $scope.statusmsg = data.d;
+                    });
+                    post.error(function (data, status) {
+                        $window.alert(data.Message);
+                    });
+                }
+                $scope.GetMessages();
+                $scope.GetNewMsgs();
+                $scope.GetUsers();
+                setInterval(function () {
+                    $scope.GetMessages();
+                    //$scope.GetNewMsgs();
+
+                }, 5000);
+
+                setInterval(function () {
+                    $scope.GetNewMsgs();
+                }, 60000);
+
+                setInterval(function () {
+                    $scope.GetUsers();
+                }, 100000);
+            });
+        </script>
+
+        <!-- Msg Get Send Ajax End-->
+    </form>
+</body>
+</html>

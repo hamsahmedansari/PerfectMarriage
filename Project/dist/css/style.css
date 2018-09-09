@@ -1,0 +1,60 @@
+﻿body {
+}
+.custom-img-1{
+    background-image: url('../../img/about.jpg');
+
+}
+.custom-img {
+    background-position: 43% 2%;
+    background-repeat: no-repeat;
+    background-size: 160% 100%;
+    max-height: 320px;
+}
+.about_text{
+    font-size:2vw;
+}
+@media only screen and (max-width: 768px) {
+    .custom-img {
+        /*background-position: 34% 2%;*/
+        background-repeat: no-repeat;
+        /*background-size: initial;*/
+        /*height: 370px*/
+        width: 100%;
+        max-height: 220px;
+    }
+    
+}
+
+@media only screen and (max-width:500px){
+    .custom-img{
+        width:100%;
+        max-height:220px;
+    }
+    .about_text{
+    font-size:4vw;
+}
+    .custom_contact_img{
+        max-height:200px;
+    }
+}
+.custom_contact_img {
+    background-image: url('../../img/contact-us-banner.jpg');
+    background-position:30% 3%;
+    background-repeat:no-repeat;
+    background-size: 120% 100%;
+    height:150px;
+}
+
+.custom_login_img{
+    background-image:url('../../img/Login.jpg');
+    /*background-position: center;*/
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    position:fixed;
+}
+.bg-transparent-black{
+    background-color: rgba(0, 0, 0, 0.55) !important;
+    width:100%;
+    max-height:600px;
+}
